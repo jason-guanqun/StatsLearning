@@ -18,6 +18,11 @@ newBC2<-subset(newBC1,newBC1$Class=='malignant')[c(1:9)]
 newBC3<-subset(newBC1,newBC1$Class=='benign')[c(1:9)]
 
 #AR1
+transaction <- as (newBC, "transactions") 
+rules <- apriori(transaction, parameter = list(target = "rules"))
+inspect(head(rules, by="lift"))
+
+#AR2
 #large itemsets for class malignant
 transaction <- as (newBC2, "transactions") 
 itemsets <- apriori(transaction, parameter = list(target = "frequent itemsets"), control = list(verbose = FALSE))
@@ -30,9 +35,6 @@ itemsets <- apriori(transaction, parameter = list(target = "frequent itemsets",m
 result2 <- DATAFRAME(sort(itemsets, by="support"))
 head(result2)
 
-#AR2
-transaction <- as (newBC, "transactions") 
-rules <- apriori(transaction, parameter = list(target = "rules"))
-inspect(head(rules, by="lift"))
+
 
 
